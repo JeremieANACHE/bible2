@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+    <meta charset="utf-8">
+    <title>La Bible 2</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/rzslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900|Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900|Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body ng-controller="MainCtrl" class="bgImg">
+
+
+    <section id="invite" class="pad-lg pad70" style="padding-top:70px;">
+      <div class="row" style="margin: 15px;">
+        <div class="col-sm-offset-2 col-sm-8">
+            <form class="paypal" action="scripts/payments.php" method="post" id="paypal_form" target="_blank">
+                <input type="hidden" name="cmd" value="_xclick" />
+                <input type="hidden" name="no_note" value="1" />
+                <input type="hidden" name="lc" value="UK" />
+                <input type="hidden" name="currency_code" value="EUR" />
+                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+                <input type="hidden" name="first_name" value="Customer's First Name"  />
+                <input type="hidden" name="last_name" value="Customer's Last Name"  />
+                <input type="hidden" name="payer_email" value="customer@example.com"  />
+                <input type="hidden" name="item_number" value="123456" />
+                    <div id="slider" class="metalHolder"></div>
+                        <div ng-app="rzSliderDemo" style="text-align: center;">
+                            <div ng-controller="MainCtrl">
+                                <h2>Découvrez le chapitre I  :</h2>
+                                <br><br><hr><br>
+                                <div class="col-sm-offset-1 col-sm-10"><h4 style="color:white;text-align: center;">Dans 2000 ans l'argent n'existera plus.
+                                    Pour Obtenir dès maintenant le premier chapitre en exclusivité, donne le montant que tu veux,
+                                    ou partage la bonne parole de la Bible 2 sur Twitter ou Facebook pour télécharger le premier
+                                    chapitre gratuitement.</h4><br>
+                                </div>
+                                <input type="number" name="prix" required ng-model="slider_translate.value" style="display: none;"/><br/>
+                                <rzslider rz-slider-model="slider_translate.value" rz-slider-options="slider_translate.options"></rzslider>
+                            </div>
+                        </div>
+                        <br><br><br>
+                 <input class="btn btn-secondary btn-lg col-sm-offset-2 col-sm-8" type="submit" name="submit" value="C'est parti !"/>
+
+            </form>
+            <div id="fb-root"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="text-center">
+        <button class="btn btn-secondary" onclick="share_me();">Partager sur Facebook</button>
+    </div>
+    
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../../../web/js/jquery-1.11.0.min.js"><\/script>')</script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+    <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+
+    <script>
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1806609339561243',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        FB.init({appId: "1806609339561243", status: true, cookie: true, version: 'v2.5'});
+        function share_me() {
+            FB.ui({
+                        method: 'feed',
+                        app_id: '1806609339561243',
+                        link: 'http://bible2.faith',
+                        picture: 'http://bible2.faith/img/la-bible.png',
+                        name: 'La Bible 2, le nouveau livre fondateur',
+                        caption: 'Obtenez votre exemplaire !',
+                        description: 'Participez à l\'écriture du nouveau livre fondateur de l’humanité pour les 2000 ans à venir'
+                    },
+                    function(response){
+                        if(response && response.post_id) {
+                            self.location.href = '{{path('get_validation')}}';
+                        }
+                        else {
+                            self.location.href = '{{path('get_cancel')}}';
+                        }
+                    });
+        }
+    </script>
+    <script>
+        var app = angular.module('rzSliderDemo', ['rzModule', 'ui.bootstrap']);
+
+        app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal)
+        {
+            $scope.slider_translate = {
+                value: 10,
+                options: {
+                    ceil: 20,
+                    floor: 1,
+                    id: 'translate-slider',
+                    translate: function(value, id, which) {
+                        return value + '€';
+                    }
+                }
+            };
+        });
+
+    </script>
+    <script>
+        function OpenInNewTab(url) {
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+    </script>
+
+   
+    </body>
+</html>
